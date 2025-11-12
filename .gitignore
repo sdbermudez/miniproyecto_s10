@@ -1,0 +1,8 @@
+laboratorio/
+venv/
+.env/
+*.env
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
