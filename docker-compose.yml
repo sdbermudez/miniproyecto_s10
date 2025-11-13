@@ -1,0 +1,14 @@
+version: "3.9"
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    image: heart-api
+    container_name: miniproyecto
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+    restart: always
