@@ -10,7 +10,7 @@ El flujo de trabajo está validado con **integración continua (CI)** mediante *
 
 ## Estructura del proyecto
 
-```bash
+```
 MINIPROYECTO_S10/
 │
 ├── app/
@@ -55,26 +55,26 @@ MINIPROYECTO_S10/
 
 ### Clonar el repositorio
 
-```bash
+```
 git clone https://github.com/<tu_usuario>/MINIPROYECTO_S10.git
 cd MINIPROYECTO_S10
 ```
 
 ### Instalar dependencias
 
-```bash
+```
 pip install -r docker/requirements.txt
 ```
 
 ### Ejecutar el servicio FastAPI localmente
 
-```bash
+```
 uvicorn app.api:app --reload
 ```
 
 luego abra en su navegador:
 
-```bash
+```
 http://localhost:8000/docs
 ```
 
@@ -82,7 +82,7 @@ Aquí encontrará la documentación interactiva Swagger UI para probar el endpoi
 
 ## Ejemplo de solicitud
 
-```bash
+```
 {
     "features":[57, "Male", "ATA", 140, 240, 0, "Normal", 160, "N", 1.0, "Up"]
     }
