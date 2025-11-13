@@ -1,4 +1,5 @@
 name: CI
+
 on: [push]
 
 jobs:
@@ -6,7 +7,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
       - name: Set up Python
         uses: actions/setup-python@v4
@@ -19,7 +21,12 @@ jobs:
           pip install flake8 pytest
 
       - name: Lint
+        working-directory: ${{ github.workspace }}/miniproyecto_s10
         run: flake8 app/ || true
 
-      - name: Tests
+      - name: Move to repo folder
+        run: cd $GITHUB_WORKSPACE/miniproyecto_s10
+
+      - name: Run tests
+        working-directory: ${{ github.workspace }}/miniproyecto_s10
         run: pytest tests/
