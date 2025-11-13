@@ -10,6 +10,7 @@ El flujo de trabajo está validado con **integración continua (CI)** mediante *
 
 ## Estructura del proyecto
 
+```bash
 MINIPROYECTO_S10/
 │
 ├── app/
@@ -46,6 +47,7 @@ MINIPROYECTO_S10/
 ├── .flake8 # Configuración de estilo
 ├── .gitignore # Archivos ignorados por Git
 └── README.md # Documentación del proyecto
+```
 
 ---
 
@@ -71,7 +73,10 @@ uvicorn app.api:app --reload
 ```
 
 luego abra en su navegador:
+
+```bash
 http://localhost:8000/docs
+```
 
 Aquí encontrará la documentación interactiva Swagger UI para probar el endpoint /predict.
 
