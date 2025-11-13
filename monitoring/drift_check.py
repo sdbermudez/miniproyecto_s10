@@ -7,8 +7,8 @@ import os
 os.makedirs("reports", exist_ok=True)
 
 # Cargar datos
-ref = pd.read_csv("data/heart_train.csv")
-cur = pd.read_csv("data/heart_test.csv")
+ref = pd.read_csv("data/cleaned/heart_train.csv")
+cur = pd.read_csv("data/cleaned/heart_test.csv")
 
 # Crear reporte de deriva
 report = Report(metrics=[DataDriftPreset()])
