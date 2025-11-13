@@ -44,14 +44,12 @@ app = FastAPI(
 )
 
 class Input(BaseModel):
-    # Validar longitud exacta si feature_order existe; usamos conlist para validar tipos homogéneos,
-    # pero aquí permitimos heterogeneidad (Any) y validamos longitud y tipos en validator.
     features: List[Any] = Field(..., example=[57, "Male", "ATA", 140, 240, 0, "Normal", 160, "N", 1.0, "Up"])
 
     @validator("features")
     def check_length(cls, v):
         if feature_order is None:
-            # No conocemos el orden aún; permitimos pasar, pero esto es raro en producción
+            
             return v
         if len(v) != len(feature_order):
             raise ValueError(f"Se esperaban {len(feature_order)} valores según feature_order, llegaron {len(v)}.")
@@ -80,25 +78,23 @@ def coerce_row_to_dtypes(row_list, feature_order, reference_df=None):
     """
     coerced = []
     for v in row_list:
-        # if already numeric-like list -> leave it
         if isinstance(v, (int, float, bool)) or v is None:
             coerced.append(v)
             continue
-        # try int
         try:
             iv = int(v)
             coerced.append(iv)
             continue
         except Exception:
             pass
-        # try float
+
         try:
             fv = float(v)
             coerced.append(fv)
             continue
         except Exception:
             pass
-        # fallback: keep string
+        
         coerced.append(v)
     return coerced
 
@@ -107,21 +103,18 @@ def predict(data: Input, request: Request):
     if model is None or feature_order is None:
         raise HTTPException(status_code=503, detail="Modelo o metadata no disponible en el servidor.")
 
-    # Validación de longitud ya hecha por Pydantic, redundante por seguridad:
+    
     if len(data.features) != len(feature_order):
         raise HTTPException(status_code=400, detail=f"Length mismatch: expected {len(feature_order)} features.")
 
-    # Coerción simple de tipos
     row = coerce_row_to_dtypes(data.features, feature_order)
 
-    # Construir DataFrame con el orden correcto
     try:
         X_df = pd.DataFrame([row], columns=feature_order)
     except Exception as e:
         logger.exception("Error construyendo DataFrame de entrada: %s", e)
         raise HTTPException(status_code=400, detail=f"Error construyendo DataFrame: {e}")
 
-    # Predecir (manejar excepciones del modelo)
     try:
         proba = model.predict_proba(X_df)[0][1]
         prediction = int(proba > 0.5)

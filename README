@@ -1,0 +1,84 @@
+# Predicción de Enfermedad Cardíaca con MLOps
+
+## Descripción general
+
+Este proyecto implementa un sistema de **aprendizaje automático** para la **predicción de enfermedad cardíaca**, dentro de una arquitectura **MLOps** moderna.  
+Integra un modelo de clasificación entrenado con técnicas supervisadas, una **API REST** desarrollada con **FastAPI**, y despliegues automatizados mediante **Docker Compose** y **Kubernetes**.  
+El flujo de trabajo está validado con **integración continua (CI)** mediante **GitHub Actions**, asegurando calidad de código y reproducibilidad.
+
+---
+
+## Estructura del proyecto
+
+MINIPROYECTO_S10/
+│
+├── app/
+│ ├── api.py # Servicio FastAPI para predicciones
+│ ├── feature_order.json # Orden de las características de entrada
+│ └── model.joblib # Modelo entrenado serializado
+│
+├── data/
+│ ├── raw/ # Datos originales
+│ ├── cleaned/ # Datos procesados
+│ └── eda_preprocessing.ipynb # Análisis exploratorio y preprocesamiento
+│
+├── notebooks/
+│ └── model_training.ipynb # Entrenamiento del modelo
+│
+├── tests/
+│ ├── init.py
+│ ├── test_api.py # Pruebas del servicio FastAPI
+│ └── test_model.py # Verificación del modelo y features
+│
+├── docker/
+│ ├── Dockerfile # Contenedor de la API
+│ ├── .dockerignore
+│ └── requirements.txt # Dependencias del entorno
+│
+├── k8s/
+│ ├── deployment.yaml # Definición de despliegue en Kubernetes
+│ └── service.yaml # Servicio para exponer la API
+│
+├── .github/workflows/
+│ └── ci.yml # Pipeline de integración continua (CI)
+│
+├── docker-compose.yml # Orquestación local con Docker Compose
+├── .flake8 # Configuración de estilo
+├── .gitignore # Archivos ignorados por Git
+└── README.md # Documentación del proyecto
+
+---
+
+## Instalación y ejecución local
+
+### Clonar el repositorio
+
+```bash
+git clone https://github.com/<tu_usuario>/MINIPROYECTO_S10.git
+cd MINIPROYECTO_S10
+```
+
+### Instalar dependencias
+
+```bash
+pip install -r docker/requirements.txt
+```
+
+### Ejecutar el servicio FastAPI localmente
+
+```bash
+uvicorn app.api:app --reload
+```
+
+luego abra en su navegador:
+http://localhost:8000/docs
+
+Aquí encontrará la documentación interactiva Swagger UI para probar el endpoint /predict.
+
+## Ejemplo de solicitud
+
+```bash
+{
+    "features":[57, "Male", "ATA", 140, 240, 0, "Normal", 160, "N", 1.0, "Up"]
+    }
+```
