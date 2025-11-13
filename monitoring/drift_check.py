@@ -10,13 +10,25 @@ os.makedirs("reports", exist_ok=True)
 ref = pd.read_csv("data/cleaned/heart_train.csv")
 cur = pd.read_csv("data/cleaned/heart_test.csv")
 
-# Crear reporte de deriva
+# Generar reporte
 report = Report(metrics=[DataDriftPreset()])
 report.run(reference_data=ref, current_data=cur)
 
-# Guardar reporte HTML (nuevo método en Evidently 0.7)
-html = report.as_html()
-with open("reports/drift_report.html", "w", encoding="utf-8") as f:
-    f.write(html)
+# Guardar salida HTML manualmente
+# Evidently >=0.7 solo genera JSON o notebooks, así que convertimos el JSON a HTML básico
+report_json = report.json()
 
-print("✅ Reporte de deriva generado: reports/drift_report.html")
+html_output = f"""
+<html>
+<head><title>Data Drift Report</title></head>
+<body>
+<h1>Data Drift Report</h1>
+<pre>{report_json}</pre>
+</body>
+</html>
+"""
+
+with open("reports/drift_report.html", "w", encoding="utf-8") as f:
+    f.write(html_output)
+
+print("Reporte de deriva generado: reports/drift_report.html")
