@@ -4,8 +4,8 @@ from evidently.presets import DataDriftPreset
 import pandas as pd
 
 # Carga datasets de ejemplo
-ref = pd.read_csv("data/heart_train.csv")
-cur = pd.read_csv("data/heart_test.csv")
+ref = pd.read_csv("../data/heart_train.csv")
+cur = pd.read_csv("../data/heart_test.csv")
 
 # Genera reporte
 report = Report(metrics=[DataDriftPreset()])
