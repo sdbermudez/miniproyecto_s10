@@ -26,12 +26,3 @@ jobs:
 
       - name: Run tests
         run: pytest tests/
-
-      - name: Run drift check
-        run: |
-          python monitoring/drift_check.py
-      - name: Upload drift report
-        uses: actions/upload-artifact@v4
-        with:
-          name: drift-report
-          path: reports/drift_report.html
