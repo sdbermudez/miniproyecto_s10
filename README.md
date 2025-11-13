@@ -92,7 +92,7 @@ El servicio responde con un objeto JSON que incluye:
 Desde la carpeta raíz del proyecto:
 
 ```bash
-docker compose -f docker/docker-compose.yml build
+docker compose build
 ```
 
 ### Ejecutar el contenedor
