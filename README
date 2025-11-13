@@ -54,7 +54,7 @@ MINIPROYECTO_S10/
 
 ### Clonar el repositorio
 ```
-git clone https://github.com/<tu_usuario>/MINIPROYECTO_S10.git
+git clone (https://github.com/<tu_usuario>/MINIPROYECTO_S10.git)
 cd MINIPROYECTO_S10
 ```
 
@@ -70,7 +70,7 @@ uvicorn app.api:app --reload
 
 luego abra en su navegador:
 ```
-http://localhost:8000/docs
+(http://localhost:8000/docs)
 ```
 
 Aquí encontrará la documentación interactiva Swagger UI para probar el endpoint /predict.
